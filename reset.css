@@ -1,0 +1,16 @@
+h1,h2,h3,h4,h5,h6{ font-size:14px;margin:0px;padding:0px;font-weight:600;}
+ul,li,dl,dt,dd,ul,ol{list-style:none;padding: 0;margin: 0;}
+select{font-size:14px; color:#313232;}
+input,textarea{font-size:14px; color:#313232;}
+select,input,textarea{vertical-align:middle; padding:0; margin:0; font-family:Microsoft Yahei}
+cite,em{font-style:normal;}
+a{text-decoration:none;transition:all 0.4s;}
+a:link,a:visited{color:#313232;} 
+a:hover,a:active{color: #313232;text-decoration:none;} 
+img{border:0px;}
+body *{max-height: 999999px;}
+body{min-width:1200px;margin: auto;-webkit-text-size-adjust: none;}
+input:-webkit-autofill{-webkit-box-shadow: 0 0 0px 1000px #fff inset;}
+input,select{-webkit-appearance: none;}
+.clearfix:after{content:'';display: block;clear: both;}
+/*------------------------ 初始化样式 -------------------------*/
