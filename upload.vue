@@ -1,13 +1,4 @@
 <template>
-    <!--
-        <upload-images
-            v-model="fileList"
-            multiple
-            :limit="2"
-            >
-        </upload-images>
-    -->
-
     <div class="upload">
         <el-upload :class="{'hide':imgLength >= limit}" :disabled="disabled" :multiple="multiple" :action="action"
             :limit="limit" :list-type="listType" :show-file-list="showFileList" :before-upload="beforeAvatarUpload"
@@ -22,12 +13,13 @@
             <img v-else class="dialogImage" :src="dialogImageUrl">
         </el-dialog>
         <!-- 视频预览 -->
-        <img v-if="!start&&isVideo" :src="previewURL" alt="" class="preview">
+        <img v-if="!start&&isVideo&&show" :src="previewURL" alt="" class="preview">
     </div>
 </template>
 
 <script>
 import { URL } from 'url';
+import { setTimeout } from 'timers';
 export default {
     data() {
         return {
@@ -40,7 +32,8 @@ export default {
             loading: false,
             disabled: false,
             previewURL: '',//视频预览链接
-            isVideo: true
+            isVideo: true,
+            show: false
         }
     },
     props: {
@@ -98,7 +91,8 @@ export default {
             }
         },
         handleSuccess(file, fileInfo) {
-            this.start = false
+            this.start = false;
+            this.show = true;
             if (this.one) {
                 this.propList = []
                 this.$emit('change', false)
@@ -118,10 +112,12 @@ export default {
                 val = val.join(',')
             }
             fileInfo['type'] = this.isVideo ? 2 : 1;
-            this.$emit('input', { fileList: val, fileInfo })
+            this.$emit('input', val)
+            this.$emit('infoChange', fileInfo)
         },
         handleRemove(file, fileList) {
-            let url = file.response ? file.response.imgPath : file.url
+            this.show = false;
+            let url = file.response ? file.response.imgPath : file.url;
             setTimeout(() => {
                 this.imgLength = this.propList.length
             }, 500)
@@ -201,7 +197,7 @@ export default {
                     this.fileList.push(item)
                 })
             }
-        }
+        },
     }
 }
 </script>
